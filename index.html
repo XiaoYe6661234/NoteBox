@@ -35,6 +35,7 @@
             --bad-color: #ff4444;
             --miss-color: #ff3333;
             --hold-color: #44ccff;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
         * {
             margin: 0;
@@ -56,179 +57,47 @@
             touch-action: manipulation;
             -webkit-font-smoothing: antialiased;
         }
-        .toolbar {
+        .status-bar {
             background: var(--panel-bg);
-            padding: 6px 10px;
+            padding: 3px 10px;
             display: flex;
             align-items: center;
-            gap: 5px;
-            flex-wrap: wrap;
-            border-bottom: 1.5px solid var(--border);
-            z-index: 20;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-            min-height: 42px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        .toolbar::-webkit-scrollbar {
-            display: none;
-        }
-        .toolbar .brand {
-            font-weight: 900;
-            font-size: 1em;
-            color: var(--accent-bright);
-            letter-spacing: 0.3px;
-            white-space: nowrap;
-            margin-right: 2px;
-            flex-shrink: 0;
-        }
-        .toolbar button {
-            background: var(--panel2);
-            color: #b0b0b0;
-            border: 1.5px solid #333;
-            padding: 5px 9px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-size: 0.73em;
-            font-weight: 600;
-            transition: all 0.15s;
-            white-space: nowrap;
-            letter-spacing: 0.2px;
-            font-family: var(--font);
-            flex-shrink: 0;
-            min-height: 30px;
-        }
-        .toolbar button:hover {
-            border-color: #666;
-            color: #fff;
-            background: #1f1f1f;
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
-        }
-        .toolbar button:active {
-            transform: scale(0.95);
-            transition: transform 0.06s;
-        }
-        .toolbar button.active {
-            border-color: #888 !important;
-            color: #fff !important;
-            background: #252525 !important;
-            box-shadow: 0 0 12px rgba(180, 180, 180, 0.25);
-        }
-        .toolbar .sep {
-            width: 1px;
-            height: 18px;
-            background: #2e2e2e;
-            margin: 0 2px;
-            border-radius: 1px;
-            flex-shrink: 0;
-        }
-        .toolbar label {
-            font-size: 0.7em;
+            gap: 8px;
+            font-size: 0.64em;
             color: var(--text2);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            min-height: 22px;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+        .status-bar span {
             white-space: nowrap;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-            flex-shrink: 0;
         }
-        .toolbar input[type="number"],
-        .toolbar input[type="range"] {
-            background: #0f0f0f;
+        .status-bar .highlight {
             color: #ddd;
-            border: 1.5px solid #333;
-            padding: 4px 5px;
-            border-radius: var(--radius-sm);
-            font-size: 0.73em;
-            text-align: center;
-            font-weight: 600;
-            font-family: var(--font);
-            width: 44px;
-            flex-shrink: 0;
-            min-height: 28px;
-        }
-        .toolbar input[type="number"]:focus {
-            border-color: #777;
-            outline: none;
-        }
-        .toolbar input[type="range"] {
-            width: 50px;
-            padding: 0;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #999;
-        }
-        .toolbar input[type="file"] {
-            display: none;
-        }
-        .toolbar .btn-icon {
-            font-size: 0.9em;
-            padding: 4px 7px;
-            min-width: 28px;
-            text-align: center;
-        }
-        .toolbar .btn-back {
-            background: transparent;
-            border: 1.5px solid #444;
-            color: #aaa;
             font-weight: 700;
         }
-        .toolbar .btn-back:hover {
-            border-color: #777;
-            color: #fff;
-        }
-        .toolbar .sub-nav-label {
-            font-weight: 700;
-            color: #ddd;
-            font-size: 0.75em;
-            letter-spacing: 0.4px;
-            margin: 0 2px;
-            flex-shrink: 0;
-        }
-        .toolbar .cover-thumb {
-            width: 26px;
-            height: 18px;
-            border-radius: 3px;
-            object-fit: cover;
-            border: 1.5px solid #444;
-            cursor: pointer;
-            display: none;
-            flex-shrink: 0;
-        }
-        .toolbar .cover-thumb.visible {
+        .status-bar .dot {
             display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            margin-right: 2px;
+            vertical-align: middle;
         }
-        .toolbar .allow-edit-label {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.7em;
-            color: #bbb;
-            cursor: pointer;
-            flex-shrink: 0;
-            white-space: nowrap;
+        .dot.recording {
+            background: #ff5555;
+            animation: blink 0.6s infinite;
         }
-        .toolbar .allow-edit-label input {
-            width: 15px;
-            height: 15px;
-            accent-color: #999;
-            cursor: pointer;
-        }
-        .toolbar .auto-play-label {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.7em;
-            color: #ff8888;
-            cursor: pointer;
-            flex-shrink: 0;
-            white-space: nowrap;
-        }
-        .toolbar .auto-play-label input {
-            width: 15px;
-            height: 15px;
-            accent-color: #ff5555;
-            cursor: pointer;
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.2;
+            }
         }
         .main-container {
             flex: 1;
@@ -237,6 +106,7 @@
             flex-direction: column;
             overflow: hidden;
             background: #060606;
+            min-height: 0;
         }
         .canvas-wrapper {
             flex: 1;
@@ -244,6 +114,7 @@
             background: #060606;
             overflow: hidden;
             cursor: crosshair;
+            min-height: 0;
         }
         .canvas-wrapper.play-mode {
             cursor: pointer;
@@ -544,49 +415,186 @@
             accent-color: #ff5555;
             cursor: pointer;
         }
-        .status-bar {
+        .toolbar {
             background: var(--panel-bg);
-            padding: 3px 10px;
+            padding: 6px 10px;
+            padding-bottom: calc(6px + var(--safe-bottom));
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.64em;
-            color: var(--text2);
-            border-top: 1px solid var(--border);
+            gap: 5px;
             flex-wrap: wrap;
-            min-height: 22px;
+            border-top: 1.5px solid var(--border);
+            z-index: 20;
+            box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.5);
+            min-height: 42px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            flex-shrink: 0;
         }
-        .status-bar span {
+        .toolbar::-webkit-scrollbar {
+            display: none;
+        }
+        .toolbar .brand {
+            font-weight: 900;
+            font-size: 1em;
+            color: var(--accent-bright);
+            letter-spacing: 0.3px;
             white-space: nowrap;
+            margin-right: 2px;
+            flex-shrink: 0;
         }
-        .status-bar .highlight {
+        .toolbar button {
+            background: var(--panel2);
+            color: #b0b0b0;
+            border: 1.5px solid #333;
+            padding: 5px 9px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.73em;
+            font-weight: 600;
+            transition: all 0.15s;
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+            font-family: var(--font);
+            flex-shrink: 0;
+            min-height: 30px;
+        }
+        .toolbar button:hover {
+            border-color: #666;
+            color: #fff;
+            background: #1f1f1f;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        }
+        .toolbar button:active {
+            transform: scale(0.95);
+            transition: transform 0.06s;
+        }
+        .toolbar button.active {
+            border-color: #888 !important;
+            color: #fff !important;
+            background: #252525 !important;
+            box-shadow: 0 0 12px rgba(180, 180, 180, 0.25);
+        }
+        .toolbar .sep {
+            width: 1px;
+            height: 18px;
+            background: #2e2e2e;
+            margin: 0 2px;
+            border-radius: 1px;
+            flex-shrink: 0;
+        }
+        .toolbar label {
+            font-size: 0.7em;
+            color: var(--text2);
+            white-space: nowrap;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            flex-shrink: 0;
+        }
+        .toolbar input[type="number"],
+        .toolbar input[type="range"] {
+            background: #0f0f0f;
             color: #ddd;
+            border: 1.5px solid #333;
+            padding: 4px 5px;
+            border-radius: var(--radius-sm);
+            font-size: 0.73em;
+            text-align: center;
+            font-weight: 600;
+            font-family: var(--font);
+            width: 44px;
+            flex-shrink: 0;
+            min-height: 28px;
+        }
+        .toolbar input[type="number"]:focus {
+            border-color: #777;
+            outline: none;
+        }
+        .toolbar input[type="range"] {
+            width: 50px;
+            padding: 0;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #999;
+        }
+        .toolbar input[type="file"] {
+            display: none;
+        }
+        .toolbar .btn-icon {
+            font-size: 0.9em;
+            padding: 4px 7px;
+            min-width: 28px;
+            text-align: center;
+        }
+        .toolbar .btn-back {
+            background: transparent;
+            border: 1.5px solid #444;
+            color: #aaa;
             font-weight: 700;
         }
-        .status-bar .dot {
+        .toolbar .btn-back:hover {
+            border-color: #777;
+            color: #fff;
+        }
+        .toolbar .sub-nav-label {
+            font-weight: 700;
+            color: #ddd;
+            font-size: 0.75em;
+            letter-spacing: 0.4px;
+            margin: 0 2px;
+            flex-shrink: 0;
+        }
+        .toolbar .cover-thumb {
+            width: 26px;
+            height: 18px;
+            border-radius: 3px;
+            object-fit: cover;
+            border: 1.5px solid #444;
+            cursor: pointer;
+            display: none;
+            flex-shrink: 0;
+        }
+        .toolbar .cover-thumb.visible {
             display: inline-block;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            margin-right: 2px;
-            vertical-align: middle;
         }
-        .dot.recording {
-            background: #ff5555;
-            animation: blink 0.6s infinite;
+        .toolbar .allow-edit-label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7em;
+            color: #bbb;
+            cursor: pointer;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
-        @keyframes blink {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.2;
-            }
+        .toolbar .allow-edit-label input {
+            width: 15px;
+            height: 15px;
+            accent-color: #999;
+            cursor: pointer;
+        }
+        .toolbar .auto-play-label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7em;
+            color: #ff8888;
+            cursor: pointer;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .toolbar .auto-play-label input {
+            width: 15px;
+            height: 15px;
+            accent-color: #ff5555;
+            cursor: pointer;
         }
         .copyright-bar {
             background: #0d0d0d;
             padding: 4px 12px;
+            padding-bottom: calc(4px + var(--safe-bottom));
             text-align: center;
             font-size: 0.58em;
             color: #555;
@@ -758,6 +766,7 @@
             width: 100%;
             box-shadow: 0 14px 48px rgba(0, 0, 0, 0.85);
             text-align: center;
+            pointer-events: auto;
         }
         .result-modal .result-title {
             font-weight: 900;
@@ -800,6 +809,8 @@
             transition: all 0.2s;
             font-family: var(--font);
             letter-spacing: 0.3px;
+            pointer-events: auto;
+            z-index: 315;
         }
         .result-modal .result-buttons button:hover {
             border-color: #888;
@@ -836,6 +847,16 @@
             cursor: not-allowed;
             pointer-events: none;
         }
+        .result-modal .result-buttons button.replay-btn {
+            border-color: #55cc88;
+            color: #88ffbb;
+            background: #14201a;
+        }
+        .result-modal .result-buttons button.replay-btn:hover {
+            border-color: #77ddaa;
+            color: #aaffcc;
+            background: #1a2a20;
+        }
         .result-modal .autoplay-badge {
             display: inline-block;
             background: #ff3333;
@@ -863,6 +884,7 @@
                 padding: 4px 5px;
                 gap: 3px;
                 min-height: 34px;
+                padding-bottom: calc(4px + var(--safe-bottom));
             }
             .toolbar button {
                 padding: 4px 6px;
@@ -893,6 +915,7 @@
                 font-size: 0.52em;
                 padding: 3px 8px;
                 min-height: 16px;
+                padding-bottom: calc(3px + var(--safe-bottom));
             }
             .judgment-popup {
                 font-size: 1.1em;
@@ -920,15 +943,23 @@
     </style>
 </head>
 <body>
-    <div class="toolbar" id="toolbar">
-        <span class="brand" id="brandLabel">🎵 NoteBox</span>
-        <span class="sep"></span>
-        <span id="toolbarDynamic"></span>
+    <div class="status-bar" id="statusBar">
+        <span>模式: <span class="highlight" id="statusMode">主页</span></span>
+        <span>音符: <span class="highlight" id="statusNotes">0</span></span>
+        <span>时长: <span class="highlight" id="statusDuration">0:00</span></span>
+        <span>当前: <span class="highlight" id="statusTime">0.00s</span></span>
+        <span>显示: <span class="highlight" id="statusZoom">100%</span></span>
+        <span id="statusRecDot" style="display:none;"><span class="dot recording"></span>录制中</span>
+        <span id="statusGame" style="display:none;">| 分数: <span class="highlight" id="statusScore">0</span> 连击: <span class="highlight" id="statusCombo">0</span></span>
+        <span id="statusCoverBadge" style="display:none;color:#999;">| 🖼 有封面</span>
+        <span id="statusProjName" style="display:none;color:#aaa;">| 工程: <span class="highlight" id="statusProjNameVal">-</span></span>
+        <span id="statusHitSound" style="display:none;color:#999;">| 🔔 有打击音效</span>
+        <span id="statusAutoPlay" style="display:none;color:#ff8888;">| 🤖 自动游玩</span>
     </div>
     <div class="main-container" id="mainContainer">
         <div class="home-panel" id="homePanel">
             <div class="home-title">🎵 NoteBox</div>
-            <div class="home-subtitle">音符盒子 · 音游谱面制作器 v1.0.8</div>
+            <div class="home-subtitle">音符盒子 · 音游谱面制作器 v1.0.9</div>
             <div class="home-buttons">
                 <button class="home-btn primary" id="btnHomeProject">📁 工程</button>
                 <button class="home-btn" id="btnHomeImport">📥 导入游玩</button>
@@ -966,20 +997,12 @@
             </div>
         </div>
     </div>
-    <div class="status-bar" id="statusBar">
-        <span>模式: <span class="highlight" id="statusMode">主页</span></span>
-        <span>音符: <span class="highlight" id="statusNotes">0</span></span>
-        <span>时长: <span class="highlight" id="statusDuration">0:00</span></span>
-        <span>当前: <span class="highlight" id="statusTime">0.00s</span></span>
-        <span>显示: <span class="highlight" id="statusZoom">100%</span></span>
-        <span id="statusRecDot" style="display:none;"><span class="dot recording"></span>录制中</span>
-        <span id="statusGame" style="display:none;">| 分数: <span class="highlight" id="statusScore">0</span> 连击: <span class="highlight" id="statusCombo">0</span></span>
-        <span id="statusCoverBadge" style="display:none;color:#999;">| 🖼 有封面</span>
-        <span id="statusProjName" style="display:none;color:#aaa;">| 工程: <span class="highlight" id="statusProjNameVal">-</span></span>
-        <span id="statusHitSound" style="display:none;color:#999;">| 🔔 有打击音效</span>
-        <span id="statusAutoPlay" style="display:none;color:#ff8888;">| 🤖 自动游玩</span>
+    <div class="toolbar" id="toolbar">
+        <span class="brand" id="brandLabel">🎵 NoteBox</span>
+        <span class="sep"></span>
+        <span id="toolbarDynamic"></span>
     </div>
-    <div class="copyright-bar">©2026 XiaoYe Studio 开发 · 版权所有，严禁抄袭 · NoteBox v1.0.8</div>
+    <div class="copyright-bar">©2026 XiaoYe Studio 开发 · 版权所有，严禁抄袭 · NoteBox v1.0.9</div>
     <input type="file" id="fileInput" accept="audio/*" style="display:none;">
     <input type="file" id="coverFileInput" accept="image/*" style="display:none;">
     <input type="file" id="importFileInput" accept=".json,.zip" style="display:none;">
@@ -1054,6 +1077,7 @@
             let cropStart = 0;
             let cropEnd = 0;
             let gameState = null;
+            let gameEndProcessed = false;
             let animFrameId = null;
             let dpr = Math.min(window.devicePixelRatio || 1, 2);
             let viewScrollX = 0;
@@ -1300,6 +1324,10 @@
 
             function showResultModal(gs, grade, isAutoPlay) {
                 return new Promise((resolve) => {
+                    if (document.querySelector('.result-modal-overlay')) {
+                        resolve('dismiss');
+                        return;
+                    }
                     const total = gs.totalNotes;
                     const scorePercent = total > 0 ? Math.round((gs.perfectCount * 100 + gs.goodCount * 60 + gs.badCount *
                         20) / (total * 100) * 100) : 0;
@@ -1329,31 +1357,64 @@
                             <div class="result-info">${infoLines}</div>
                             <div class="result-buttons">
                                 <button id="resBtnHome">🏠 返回首页</button>
+                                <button id="resBtnReplay" class="replay-btn">🔄 重新游玩</button>
                                 ${editBtnHtml}
                                 ${saveShareHtml}
                             </div>
                         </div>`;
                     document.body.appendChild(overlay);
                     let resolved = false;
-                    const closeAndResolve = (action) => { if (resolved) return;
-                        resolved = true; if (overlay.parentNode) overlay.remove();
-                        resolve(action); };
-                    const btnHome = overlay.querySelector('#resBtnHome');
-                    if (btnHome) btnHome.addEventListener('click', (e) => { e.stopPropagation();
-                        closeAndResolve('home'); });
-                    const btnEdit = overlay.querySelector('#resBtnEdit');
-                    if (btnEdit) btnEdit.addEventListener('click', (e) => { e.stopPropagation();
-                        closeAndResolve('edit'); });
-                    const btnSave = overlay.querySelector('#resBtnSave');
-                    if (btnSave && !isAutoPlay) btnSave.addEventListener('click', (e) => { e.stopPropagation();
-                        saveResultImage(gs, grade, scorePercent);
-                        closeAndResolve('save'); });
-                    const btnShare = overlay.querySelector('#resBtnShare');
-                    if (btnShare && !isAutoPlay) btnShare.addEventListener('click', (e) => { e.stopPropagation();
-                        saveResultImage(gs, grade, scorePercent);
-                        shareResultText();
-                        closeAndResolve('share'); });
-                    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeAndResolve('dismiss'); });
+                    const closeAndResolve = (action) => {
+                        if (resolved) return;
+                        resolved = true;
+                        if (overlay.parentNode) overlay.remove();
+                        resolve(action);
+                    };
+                    const bindBtn = (id, action) => {
+                        const btn = overlay.querySelector('#' + id);
+                        if (btn) {
+                            btn.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                closeAndResolve(action);
+                            });
+                            btn.addEventListener('touchend', (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                closeAndResolve(action);
+                            });
+                        }
+                    };
+                    bindBtn('resBtnHome', 'home');
+                    bindBtn('resBtnReplay', 'replay');
+                    bindBtn('resBtnEdit', 'edit');
+                    if (!isAutoPlay) {
+                        const btnSave = overlay.querySelector('#resBtnSave');
+                        if (btnSave) {
+                            btnSave.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                saveResultImage(gs, grade, scorePercent);
+                                closeAndResolve('save');
+                            });
+                        }
+                        const btnShare = overlay.querySelector('#resBtnShare');
+                        if (btnShare) {
+                            btnShare.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                saveResultImage(gs, grade, scorePercent);
+                                shareResultText();
+                                closeAndResolve('share');
+                            });
+                        }
+                    }
+                    overlay.addEventListener('click', (e) => {
+                        if (e.target === overlay) closeAndResolve('dismiss');
+                    });
+                    overlay.addEventListener('touchend', (e) => {
+                        if (e.target === overlay) closeAndResolve('dismiss');
+                    });
                 });
             }
 
@@ -1447,7 +1508,7 @@
                 setupEventListeners();
                 showHome();
                 requestAnimationFrame(renderLoop);
-                console.log('🎵 NoteBox v1.0.8 已就绪 - 音符盒子'); }
+                console.log('🎵 NoteBox v1.0.9 已就绪 - 音符盒子'); }
 
             function resizeCanvas() { const rect = canvasWrapper.getBoundingClientRect(); const w = Math.floor(rect.width * dpr);
                 const h = Math.floor(rect.height * dpr); if (canvas.width !== w || canvas.height !== h) { canvas.width = w;
@@ -1471,6 +1532,7 @@
                 holdAddBtnPressStart = 0;
                 if (holdAddBtnTimeout) { clearTimeout(holdAddBtnTimeout);
                     holdAddBtnTimeout = null; }
+                gameEndProcessed = false;
                 updateToolbarForHome();
                 updateStatusBar();
             }
@@ -1491,6 +1553,7 @@
                 holdAddBtnPressStart = 0;
                 if (holdAddBtnTimeout) { clearTimeout(holdAddBtnTimeout);
                     holdAddBtnTimeout = null; }
+                gameEndProcessed = false;
                 statusRecDot.style.display = 'none';
                 statusAutoPlay.style.display = 'none';
                 canvasWrapper.classList.remove('play-mode', 'assist-mode', 'auto-play-cursor');
@@ -1610,6 +1673,7 @@
                 autoPlayEnabled = false;
                 autoPlayActive = false;
                 autoPlayPaused = false;
+                gameEndProcessed = false;
                 showEditor();
                 editorSubMode = 'main';
                 updateToolbarForEditor();
@@ -1646,6 +1710,7 @@
                 autoPlayEnabled = false;
                 autoPlayActive = false;
                 autoPlayPaused = false;
+                gameEndProcessed = false;
                 showEditor();
                 editorSubMode = 'main';
                 updateToolbarForEditor();
@@ -1709,6 +1774,7 @@
                 autoPlayEnabled = false;
                 autoPlayActive = false;
                 autoPlayPaused = false;
+                gameEndProcessed = false;
                 showEditor();
                 editorSubMode = 'main';
                 updateToolbarForEditor();
@@ -1911,8 +1977,10 @@
                             sep();
                             const btnDel = document.createElement('button');
                             btnDel.textContent = '－ 删除选中';
-                            btnDel.addEventListener('click', () => { if (selectedNotes.size > 0) { deleteSelectedNotes(); } else if (
-                                    hoveredNoteIndex >= 0) { chartData.notes.splice(hoveredNoteIndex, 1);
+                            btnDel.addEventListener('click', () => { if (!notesSelectionActive) { showToast(
+                                        '⚠ 请先开启选中模式'); return; } if (selectedNotes.size > 0) { deleteSelectedNotes
+                                    (); } else if (hoveredNoteIndex >= 0) { chartData.notes.splice(hoveredNoteIndex,
+                                        1);
                                     hoveredNoteIndex = -1;
                                     updateStatusBar();
                                     showToast('已删除音符'); } else { showToast('请先选中或悬停音符'); } });
@@ -1920,31 +1988,41 @@
                             const btnMoveL = document.createElement('button');
                             btnMoveL.textContent = '← 左移';
                             btnMoveL.title = '将选中音符向左微调';
-                            btnMoveL.addEventListener('click', () => moveSelectedNotes(-0.01));
+                            btnMoveL.addEventListener('click', () => { if (!notesSelectionActive) { showToast(
+                                    '⚠ 请先开启选中模式'); return; }
+                                moveSelectedNotes(-0.01); });
                             toolbarDynamic.appendChild(btnMoveL);
                             const btnMoveR = document.createElement('button');
                             btnMoveR.textContent = '→ 右移';
                             btnMoveR.title = '将选中音符向右微调';
-                            btnMoveR.addEventListener('click', () => moveSelectedNotes(0.01));
+                            btnMoveR.addEventListener('click', () => { if (!notesSelectionActive) { showToast(
+                                    '⚠ 请先开启选中模式'); return; }
+                                moveSelectedNotes(0.01); });
                             toolbarDynamic.appendChild(btnMoveR);
                             const btnSelL = document.createElement('button');
                             btnSelL.textContent = '⬅️ 左选';
                             btnSelL.title = '选中当前音符左边的音符';
-                            btnSelL.addEventListener('click', () => selectAdjacentNote(-1));
+                            btnSelL.addEventListener('click', () => { if (!notesSelectionActive) { showToast(
+                                    '⚠ 请先开启选中模式'); return; }
+                                selectAdjacentNote(-1); });
                             toolbarDynamic.appendChild(btnSelL);
                             const btnSelR = document.createElement('button');
                             btnSelR.textContent = '➡️ 右选';
                             btnSelR.title = '选中当前音符右边的音符';
-                            btnSelR.addEventListener('click', () => selectAdjacentNote(1));
+                            btnSelR.addEventListener('click', () => { if (!notesSelectionActive) { showToast(
+                                    '⚠ 请先开启选中模式'); return; }
+                                selectAdjacentNote(1); });
                             toolbarDynamic.appendChild(btnSelR);
                             const btnEditHoldDur = document.createElement('button');
                             btnEditHoldDur.textContent = '⏱ 编辑Hold时长';
                             btnEditHoldDur.title = '编辑选中Hold音符的持续时间';
-                            btnEditHoldDur.addEventListener('click', async () => { await editSelectedHoldDuration(); });
+                            btnEditHoldDur.addEventListener('click', async () => { if (!notesSelectionActive) { showToast(
+                                    '⚠ 请先开启选中模式'); return; } await editSelectedHoldDuration(); });
                             toolbarDynamic.appendChild(btnEditHoldDur);
                             const btnDelAll = document.createElement('button');
                             btnDelAll.textContent = '🗑 删除全部';
-                            btnDelAll.addEventListener('click', async () => { const confirmed = await showCustomConfirm(
+                            btnDelAll.addEventListener('click', async () => { if (!notesSelectionActive) { showToast(
+                                    '⚠ 请先开启选中模式'); return; } const confirmed = await showCustomConfirm(
                                     '确定删除所有音符？', '删除确认'); if (confirmed) { chartData.notes = [];
                                     selectedNotes.clear();
                                     updateStatusBar();
@@ -1952,7 +2030,9 @@
                             toolbarDynamic.appendChild(btnDelAll);
                             const btnSelAll = document.createElement('button');
                             btnSelAll.textContent = '☐ 全选';
-                            btnSelAll.addEventListener('click', () => { selectedNotes.clear();
+                            btnSelAll.addEventListener('click', () => { if (!notesSelectionActive) { showToast(
+                                    '⚠ 请先开启选中模式'); return; }
+                                selectedNotes.clear();
                                 chartData.notes.forEach((_, i) => selectedNotes.add(i));
                                 updateStatusBar();
                                 showToast('已选中 ' + selectedNotes.size + ' 个音符'); });
@@ -2051,7 +2131,7 @@
             }
 
             async function editSelectedHoldDuration() {
-                if (!notesSelectionActive) { showToast('请先开启选中模式'); return; }
+                if (!notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; }
                 if (selectedNotes.size === 0 && hoveredNoteIndex < 0) { showToast('请先选中Hold音符'); return; }
                 let targetIdx = hoveredNoteIndex;
                 if (selectedNotes.size === 1) targetIdx = [...selectedNotes][0];
@@ -2066,7 +2146,7 @@
                 showToast('✅ Hold时长已更新为 ' + newDur.toFixed(2) + 's');
             }
 
-            function moveSelectedNotes(deltaSec) { if (!notesSelectionActive) { showToast('请先开启选中模式'); return; } if (selectedNotes
+            function moveSelectedNotes(deltaSec) { if (!notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; } if (selectedNotes
                     .size === 0 && hoveredNoteIndex >= 0) { selectedNotes.add(hoveredNoteIndex); } if (selectedNotes.size === 0) {
                     showToast('请先选中音符'); return; } const indices = [...selectedNotes].filter(i => i < chartData.notes.length);
                 for (const i of indices) { const note = chartData.notes[i]; const oldTime = getNoteTime(note); const newTime = Math
@@ -2078,7 +2158,7 @@
                 showToast('已移动 ' + indices.length + ' 个音符 (' + (deltaSec > 0 ? '+' : '') + (deltaSec * 1000).toFixed(0) +
                     'ms)'); }
 
-            function selectAdjacentNote(direction) { if (!notesSelectionActive) { showToast('请先开启选中模式'); return; } if (chartData
+            function selectAdjacentNote(direction) { if (!notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; } if (chartData
                     .notes.length === 0) { showToast('没有音符'); return; } let currentIdx = hoveredNoteIndex; if (currentIdx < 0 &&
                     selectedNotes.size === 1) currentIdx = [...selectedNotes][0]; if (currentIdx < 0 && chartData.notes.length >
                     0) { currentIdx = direction > 0 ? -1 : chartData.notes.length; } const newIdx = currentIdx + direction; if (
@@ -2097,10 +2177,9 @@
                 waveCacheKey = null;
                 updateStatusBar(); }
 
-            function deleteSelectedNotes() { if (!notesSelectionActive || selectedNotes.size === 0) { if (!notesSelectionActive)
-                        showToast('请先开启选中模式'); else showToast('请先选中音符'); return; } const indices = [...selectedNotes].sort(
-                        (a, b) => b - a); for (const i of indices) { if (i < chartData.notes.length) chartData.notes.splice(i,
-                        1); }
+            function deleteSelectedNotes() { if (!notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; } if (selectedNotes
+                    .size === 0) { showToast('请先选中音符'); return; } const indices = [...selectedNotes].sort((a, b) => b - a); for (
+                    const i of indices) { if (i < chartData.notes.length) chartData.notes.splice(i, 1); }
                 selectedNotes.clear();
                 hoveredNoteIndex = -1;
                 updateStatusBar();
@@ -2219,6 +2298,7 @@
                     autoPlayEnabled = false;
                     autoPlayActive = false;
                     autoPlayPaused = false;
+                    gameEndProcessed = false;
                     showEditor();
                     editorSubMode = 'main';
                     updateToolbarForEditor();
@@ -2278,7 +2358,7 @@
                 isPlaying = false;
                 if (isRecording) { isRecording = false;
                     statusRecDot.style.display = 'none'; }
-                updateToolbarForEditor(); }
+                if (editorSubMode !== 'main' || mode === 'play') updateToolbarForEditor(); }
 
             function togglePlayback() { if (!audioBuffer) return; if (isPlaying) { pauseAudio(); } else { startPlayback(); } }
 
@@ -2316,7 +2396,7 @@
                     audioContext.currentTime - playbackStartTime; return Math.min(getEffectiveEndTime(), playbackOffset +
                     elapsed); }
 
-            function toggleRecording() { if (!audioBuffer) return;
+            function toggleRecording() { if (!audioBuffer) return; if (!notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; }
                 isRecording = !isRecording; if (isRecording) { statusRecDot.style.display = 'inline'; if (isAssistMode) {
                         isAssistMode = false;
                         canvasWrapper.classList.remove('assist-mode'); } if (!isPlaying) { playbackOffset =
@@ -2420,6 +2500,7 @@
                 playbackOffset = getEffectiveStartTime();
                 autoPlayActive = autoPlayEnabled;
                 autoPlayPaused = false;
+                gameEndProcessed = false;
                 initGameState();
                 holdPressActive = false;
                 holdPressNoteId = null;
@@ -2475,6 +2556,7 @@
                 holdPressNoteId = null;
                 autoPlayActive = false;
                 autoPlayPaused = false;
+                gameEndProcessed = false;
                 stopAudio();
                 playbackOffset = getEffectiveStartTime();
                 calibrationOverlay.classList.add('hidden');
@@ -2503,6 +2585,7 @@
                     perfectCount: 0, goodCount: 0, badCount: 0, missCount: 0, totalNotes: sortedNotes.length, started: false,
                     startTime: 0, approachTime: chartData.approachTime, lastTapTime: 0, activeHoldId: null,
                     holdPressStartTime: 0, isAutoPlay: autoPlayActive, autoPlayHoldActiveId: null, };
+                gameEndProcessed = false;
                 hitEffectParticles = []; }
 
             function updateOverlayHint() { if (mode === 'play') { if (autoPlayActive) { overlayHint.textContent =
@@ -2514,7 +2597,7 @@
                         overlayHint.style.opacity = '0.55'; } else { overlayHint.textContent =
                             '🎵 请先开启"选中模式"才能编辑音符 | 点击☐选中模式按钮';
                         overlayHint.style.opacity = '0.5'; } } else { overlayHint.textContent =
-                    '🖱 点击波形选中音符 | 滚轮缩放 | 拖拽滚动 | Shift+点击多选';
+                    '🖱 点击波形浏览 | 滚轮缩放 | 拖拽滚动 | 进入音符编辑模式操作音符';
                     overlayHint.style.opacity = '0.4'; } }
 
             function updateStatusBar() { document.getElementById('statusMode').textContent = mode === 'play' ? (autoPlayActive ?
@@ -2542,7 +2625,7 @@
                 chartData.author = packInfo.author;
                 chartData.description = packInfo.description;
                 chartData.allowEdit = allowEditExport;
-                showToast('📦 正在打包...'); const zip = new JSZip(); const chartJson = { version: '1.0.8', packageName: packInfo
+                showToast('📦 正在打包...'); const zip = new JSZip(); const chartJson = { version: '1.0.9', packageName: packInfo
                         .packageName, bpm: chartData.bpm, offset: chartData.offset, approachTime: chartData.approachTime,
                     audioFileName: chartData.audioFileName, audioDuration: audioBuffer ? audioBuffer.duration : 0,
                     coverFileName: chartData.coverFileName || 'cover.jpg', coverDataUrl: coverImageDataUrl || '',
@@ -2614,6 +2697,7 @@
                     autoPlayEnabled = false;
                     autoPlayActive = false;
                     autoPlayPaused = false;
+                    gameEndProcessed = false;
                     currentProjectName = data.packageName || data.name || '导入的游玩包';
                     currentProjectId = null;
                     updateStatusBar(); const pkgData = buildProjectData();
@@ -2642,6 +2726,7 @@
                         autoPlayEnabled = false;
                         autoPlayActive = false;
                         autoPlayPaused = false;
+                        gameEndProcessed = false;
                         updateStatusBar();
                         updateToolbarForEditor(); const pkgData = buildProjectData();
                         pkgData.packageName = currentProjectName;
@@ -2696,15 +2781,16 @@
                         noteTime - time); if (dist < bestDist) { bestDist = dist;
                         bestIdx = i; } } return bestIdx; }
 
-            function addNote(time) { const t = Math.max(0, time); if (audioBuffer && t > getEffectiveEndTime() + 0.1) return; const
-                nearby = findNearbyNote(t, 0.03); if (nearby >= 0) return;
+            function addNote(time) { if (!notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; } const t = Math.max(0,
+                    time); if (audioBuffer && t > getEffectiveEndTime() + 0.1) return; const nearby = findNearbyNote(t,
+                0.03); if (nearby >= 0) return;
                 chartData.notes.push(t);
                 sortNotes();
                 updateStatusBar(); }
 
-            function addHoldNote(time, duration) { const t = Math.max(0, time); const d = Math.max(0.05, duration); if (audioBuffer &&
-                    t + d > getEffectiveEndTime() + 0.1) return; const nearby = findNearbyNote(t, 0.03); if (nearby >= 0)
-                return;
+            function addHoldNote(time, duration) { if (!notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; } const t = Math
+                    .max(0, time); const d = Math.max(0.05, duration); if (audioBuffer && t + d > getEffectiveEndTime() +
+                    0.1) return; const nearby = findNearbyNote(t, 0.03); if (nearby >= 0) return;
                 chartData.notes.push({ t: t, d: d });
                 sortNotes();
                 updateStatusBar(); }
@@ -2712,7 +2798,8 @@
             function sortNotes() { chartData.notes.sort((a, b) => { const ta = getNoteTime(a); const tb = getNoteTime(b); return ta -
                     tb; }); }
 
-            function removeNote(time) { const idx = findNearbyNote(time, 0.05); if (idx >= 0) { chartData.notes.splice(idx, 1);
+            function removeNote(time) { if (!notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; } const idx =
+                findNearbyNote(time, 0.05); if (idx >= 0) { chartData.notes.splice(idx, 1);
                     selectedNotes.delete(idx);
                     updateStatusBar(); } }
 
@@ -2735,13 +2822,9 @@
                         hoveredNoteIndex = -1; }
                     updateStatusBar(); } else { const noteIdx = findNearbyNote(time, 0.06);
                     hoveredNoteIndex = noteIdx; if (noteIdx >= 0) { showToast('💡 请先开启"选中模式"才能编辑音符'); } } } else if (editorSubMode ===
-                    'main') { const noteIdx = findNearbyNote(time, 0.06); if (noteIdx >= 0) { if (e.shiftKey) { if (
-                            selectedNotes.has(noteIdx)) selectedNotes.delete(noteIdx); else selectedNotes.add(noteIdx); } else {
-                        selectedNotes.clear();
-                        selectedNotes.add(noteIdx); }
-                    hoveredNoteIndex = noteIdx; } else { if (!e.shiftKey) selectedNotes.clear();
-                    hoveredNoteIndex = -1; }
-                updateStatusBar(); } }
+                    'main') { const noteIdx = findNearbyNote(time, 0.06);
+                    hoveredNoteIndex = noteIdx;
+                    selectedNotes.clear(); if (noteIdx >= 0) { showToast('💡 进入"音符编辑"并开启选中模式后可编辑'); } } }
 
             function onMouseDown(e) { if (mode === 'play' && gameState && !autoPlayActive) { handleGamePress(e); return; } if (
                     mode === 'play' && autoPlayActive) { return; } if (mode === 'edit' && e.button === 0 && (editorSubMode ===
@@ -2758,11 +2841,12 @@
                     draggingNoteIndex = noteIdx;
                     dragNoteStartTime = getNoteTime(chartData.notes[noteIdx]);
                     dragNoteStartMouseX = e.clientX;
-                    canvas.style.cursor = 'grabbing'; } } else if (noteIdx >= 0 && editorSubMode === 'main') { if (!selectedNotes
-                        .has(noteIdx)) { selectedNotes.clear();
-                        selectedNotes.add(noteIdx); }
+                    canvas.style.cursor = 'grabbing'; } } else if (noteIdx >= 0 && editorSubMode === 'main') {
                     hoveredNoteIndex = noteIdx;
-                    updateStatusBar(); } else { if (!e.shiftKey) selectedNotes.clear();
+                    selectedNotes.clear();
+                    showToast('💡 进入"音符编辑"并开启选中模式后可编辑');
+                    updateStatusBar(); } else { if (!notesSelectionActive && editorSubMode === 'notes') { showToast(
+                        '💡 请先开启"选中模式"才能编辑音符'); return; } if (!e.shiftKey) selectedNotes.clear();
                     isBoxSelecting = true;
                     boxSelectStartX = e.clientX;
                     boxSelectStartTime = time;
@@ -2791,16 +2875,18 @@
                         selectedNotes.clear();
                         selectedNotes.add(newIdx); for (const si of oldSet) { if (si !== draggingNoteIndex && si < chartData
                                 .notes.length) selectedNotes.add(si); } }
-                    updateStatusBar(); return; } if (mode === 'edit' && isBoxSelecting && audioBuffer) { const currentTime =
-                        pxToTime(e.clientX - getWaveformCoords().rect.left); const minT = Math.min(boxSelectStartTime,
-                        currentTime); const maxT = Math.max(boxSelectStartTime, currentTime);
+                    updateStatusBar(); return; } if (mode === 'edit' && isBoxSelecting && audioBuffer && notesSelectionActive) {
+                        const currentTime = pxToTime(e.clientX - getWaveformCoords().rect.left); const minT = Math.min(
+                            boxSelectStartTime, currentTime); const maxT = Math.max(boxSelectStartTime, currentTime);
                     selectedNotes.clear(); for (let i = 0; i < chartData.notes.length; i++) { const nt = getNoteTime(chartData
                             .notes[i]); if (nt >= minT && nt <= maxT) selectedNotes.add(i); }
-                    updateStatusBar(); } if (mode === 'edit' && isDragging && !isBoxSelecting && draggingNoteIndex < 0) { const
-                        coords = getWaveformCoords(); const drawWidth = coords.width - 80; const duration = audioBuffer ? Math
-                        .max(getEffectiveEndTime(), 10) : 60; const pixelsPerSecond = drawWidth * viewZoom / duration; const dx = (
-                            dragStartX - e.clientX) * dpr; const totalWidth = pixelsPerSecond * duration; const scrollMax = Math
-                        .max(0, totalWidth - drawWidth);
+                    updateStatusBar(); } else if (mode === 'edit' && isBoxSelecting && !notesSelectionActive) { isBoxSelecting =
+                        false;
+                    canvas.style.cursor = 'crosshair'; } if (mode === 'edit' && isDragging && !isBoxSelecting &&
+                    draggingNoteIndex < 0) { const coords = getWaveformCoords(); const drawWidth = coords.width - 80; const
+                        duration = audioBuffer ? Math.max(getEffectiveEndTime(), 10) : 60; const pixelsPerSecond = drawWidth *
+                        viewZoom / duration; const dx = (dragStartX - e.clientX) * dpr; const totalWidth = pixelsPerSecond *
+                        duration; const scrollMax = Math.max(0, totalWidth - drawWidth);
                     viewScrollX = Math.max(0, Math.min(scrollMax, dragStartScroll + dx)); } if (mode === 'edit' && !isDragging &&
                         draggingNoteIndex < 0 && !isBoxSelecting && audioBuffer) { const coords = getWaveformCoords(); const mx =
                         e.clientX - coords.rect.left; const time = pxToTime(mx);
@@ -2843,7 +2929,8 @@
                     canvas.style.cursor = 'grabbing'; } else if (noteIdx >= 0 && !notesSelectionActive) { hoveredNoteIndex =
                         noteIdx;
                     updateStatusBar();
-                    showToast('💡 请先开启"选中模式"才能编辑音符'); } else { isDragging = true;
+                    showToast('💡 请先开启"选中模式"才能编辑音符'); } else { if (!notesSelectionActive && editorSubMode === 'notes') {
+                        showToast('💡 请先开启"选中模式"'); } isDragging = true;
                     dragStartX = touch.clientX;
                     dragStartScroll = viewScrollX; } } } }
 
@@ -2869,21 +2956,22 @@
                     e.changedTouches.length === 1 && audioBuffer && editorSubMode === 'main') { const touch = e.changedTouches[
                         0]; const coords = getWaveformCoords(); const tx = touch.clientX - coords.rect.left; const margin = 40; if (
                         tx * dpr >= margin && tx * dpr <= coords.width - margin) { const time = pxToTime(tx); const noteIdx =
-                        findNearbyNote(time, 0.06); if (noteIdx >= 0) { selectedNotes.clear();
-                            selectedNotes.add(noteIdx);
-                            hoveredNoteIndex = noteIdx;
-                            updateStatusBar(); } } } if (draggingNoteIndex >= 0) { draggingNoteIndex = -1;
+                        findNearbyNote(time, 0.06); if (noteIdx >= 0) { hoveredNoteIndex = noteIdx;
+                            updateStatusBar();
+                            showToast('💡 进入"音符编辑"并开启选中模式后可编辑'); } } } if (draggingNoteIndex >= 0) { draggingNoteIndex = -
+                        1;
                     canvas.style.cursor = 'crosshair'; }
                 isDragging = false; }
 
             function onKeyDown(e) { if (e.code === 'Space') { e.preventDefault(); if (mode === 'edit') { if (isRecording &&
-                        audioBuffer) { const time = getCurrentPlayTime();
+                        audioBuffer && notesSelectionActive) { const time = getCurrentPlayTime();
                         addNote(time);
                         hoveredNoteIndex = findNearbyNote(time, 0.03);
                         updateStatusBar();
-                        showFloatingJudgment('Record', '#ccc', null); } else if (!isRecording) { togglePlayback(); } } else if (
-                        mode === 'play' && gameState && !autoPlayActive) { handleGamePress(e); } } if (e.code === 'ArrowLeft' &&
-                    mode === 'edit') { e.preventDefault();
+                        showFloatingJudgment('Record', '#ccc', null); } else if (isRecording && !notesSelectionActive) { showToast(
+                            '⚠ 请先开启选中模式'); } else if (!isRecording) { togglePlayback(); } } else if (mode === 'play' &&
+                        gameState && !autoPlayActive) { handleGamePress(e); } } if (e.code === 'ArrowLeft' && mode === 'edit') {
+                    e.preventDefault();
                     viewScrollX = Math.max(0, viewScrollX - (0.4 / viewZoom) * 60);
                     updateStatusBar(); } if (e.code === 'ArrowRight' && mode === 'edit') { e.preventDefault(); const coords =
                         getWaveformCoords(); const drawWidth = coords.width - 80; const duration = audioBuffer ? Math.max(
@@ -2891,9 +2979,11 @@
                     totalWidth = pixelsPerSecond * duration; const scrollMax = Math.max(0, totalWidth - drawWidth);
                     viewScrollX = Math.min(scrollMax, viewScrollX + (0.4 / viewZoom) * 60);
                     updateStatusBar(); } if (e.code === 'ArrowUp' && mode === 'edit' && notesSelectionActive && selectedNotes.size >
-                    0) { e.preventDefault(); adjustSelectedHoldDuration(0.05); } if (e.code === 'ArrowDown' && mode === 'edit' &&
-                    notesSelectionActive && selectedNotes.size > 0) { e.preventDefault();
-                adjustSelectedHoldDuration(-0.05); } if (e.code === 'KeyA' && e.ctrlKey && mode === 'edit') { e.preventDefault();
+                    0) { e.preventDefault();
+                adjustSelectedHoldDuration(0.05); } if (e.code === 'ArrowDown' && mode === 'edit' && notesSelectionActive &&
+                    selectedNotes.size > 0) { e.preventDefault();
+                adjustSelectedHoldDuration(-0.05); } if (e.code === 'KeyA' && e.ctrlKey && mode === 'edit') { e.preventDefault(); if (
+                        !notesSelectionActive) { showToast('⚠ 请先开启选中模式'); return; }
                     selectedNotes.clear();
                     chartData.notes.forEach((_, i) => selectedNotes.add(i));
                     updateStatusBar();
@@ -3129,9 +3219,10 @@
                         addHitEffect('miss'); } }
                 updateStatusBar(); }
 
-            function checkGameEnd() { if (!gameState || !gameState.started) return; const allJudged = gameState.notes.every(n => n
-                    .judged); const playbackEnded = !isPlaying && audioBuffer && playbackOffset >= getEffectiveEndTime() - 0.05; if (
-                    allJudged || playbackEnded) { for (const note of gameState.notes) { if (!note.judged) { note.judged = true;
+            function checkGameEnd() { if (!gameState || !gameState.started) return; if (gameEndProcessed) return; const allJudged =
+                    gameState.notes.every(n => n.judged); const playbackEnded = !isPlaying && audioBuffer && playbackOffset >=
+                    getEffectiveEndTime() - 0.05; if (allJudged || playbackEnded) { gameEndProcessed = true; for (const note of
+                        gameState.notes) { if (!note.judged) { note.judged = true;
                             note.judgment = 'miss';
                             gameState.missCount++;
                             gameState.combo = 0;
@@ -3140,8 +3231,10 @@
                         isAuto = autoPlayActive;
                     setTimeout(async () => { const action = await showResultModal(gameState, grade, isAuto); if (action ===
                             'home') { exitPlayMode();
-                            showHome(); } else if (action === 'edit') { exitPlayMode(); } else { if (chartData
-                                .allowEdit === false) { exitPlayMode();
+                            showHome(); } else if (action === 'edit') { exitPlayMode(); } else if (action ===
+                            'replay') { exitPlayMode();
+                            setTimeout(() => startPlayFromEditor(), 300); } else { if (chartData.allowEdit ===
+                                false) { exitPlayMode();
                                 showHome(); } else { exitPlayMode(); } } }, 300); } }
 
             function calculateGrade(gs) { const total = gs.totalNotes; if (total === 0) return 'N/A'; const perfectRatio = gs
@@ -3248,9 +3341,9 @@
                         ctx.fill();
                         ctx.strokeStyle = isHovered ? '#fff' : 'rgba(200,200,200,0.5)';
                         ctx.lineWidth = isHovered ? 2 : 1.2;
-                        ctx.stroke(); } } if (isBoxSelecting && boxSelectStartX !== undefined) { const currentX = (dragStartX !==
-                        undefined) ? dragStartX : boxSelectStartX; const x1 = Math.min(boxSelectStartX, currentX); const x2 = Math
-                        .max(boxSelectStartX, currentX);
+                        ctx.stroke(); } } if (isBoxSelecting && boxSelectStartX !== undefined && notesSelectionActive) { const
+                        currentX = (dragStartX !== undefined) ? dragStartX : boxSelectStartX; const x1 = Math.min(
+                            boxSelectStartX, currentX); const x2 = Math.max(boxSelectStartX, currentX);
                     ctx.fillStyle = 'rgba(255,255,255,0.08)';
                     ctx.fillRect(x1 * dpr, margin, (x2 - x1) * dpr, drawHeight);
                     ctx.strokeStyle = 'rgba(255,255,255,0.35)';
@@ -3468,7 +3561,7 @@
 
             function getFontFamily() { return "'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif"; }
             init();
-            console.log('🎵 NoteBox v1.0.8 - 音符盒子');
+            console.log('🎵 NoteBox v1.0.9 - 音符盒子');
             console.log('  ©2026 XiaoYe Studio 开发 版权所有');
         })();
     </script>
